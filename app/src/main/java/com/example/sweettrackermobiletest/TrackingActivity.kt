@@ -27,7 +27,7 @@ class TrackingActivity : AppCompatActivity(), Contract.View {
             binding.invoice.text = this.parcelInvoice
             binding.parcelCompany.text = this.parcelCompanyName
             binding.statusSub.text = "도착예정시간 : ${this.parcelDeliverTime}"
-            binding.dateTxt.text = "등록일 : ${this.purchaseItemDate}"
+            binding.date.text = "등록일 : ${this.purchaseItemDate}"
 
             Glide
                 .with(this@TrackingActivity)
