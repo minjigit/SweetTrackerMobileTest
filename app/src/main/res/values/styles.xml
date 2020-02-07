@@ -20,5 +20,10 @@
         <item name="android:background">#f0f0f0</item>
     </style>
 
+    <style name="ToolbarTheme">
+        <item name="android:textColorPrimary">#fff</item>
+        <item name="android:textColorSecondary">#fff</item>
+    </style>
+
 
 </resources>

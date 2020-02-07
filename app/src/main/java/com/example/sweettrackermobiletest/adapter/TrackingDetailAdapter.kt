@@ -1,16 +1,16 @@
 package com.example.sweettrackermobiletest.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.sweettrackermobiletest.R
+import com.example.sweettrackermobiletest.databinding.TrackingDetailItemBinding
 import com.example.sweettrackermobiletest.model.TrackingDetailData
 
-class TrackingDetailAdapter(private val data: ArrayList<TrackingDetailData>) : RecyclerView.Adapter<TrackingDetailAdapter.ViewHolder>(){
+class TrackingDetailAdapter(private val data: List<TrackingDetailData>) : RecyclerView.Adapter<TrackingDetailAdapter.ViewHolder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.tracking_detail_item, parent, false)
-        return ViewHolder(view)
+        val binding = TrackingDetailItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(binding)
     }
 
     override fun getItemCount(): Int {
@@ -18,11 +18,18 @@ class TrackingDetailAdapter(private val data: ArrayList<TrackingDetailData>) : R
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
+        holder.bind(data[position])
     }
 
 
-    class ViewHolder(view: View): RecyclerView.ViewHolder(view){
+    class ViewHolder(private val binding: TrackingDetailItemBinding): RecyclerView.ViewHolder(binding.root){
+        fun bind(item: TrackingDetailData){
+            binding.status.text = item.status
+            binding.location.text = item.where
 
+            val dateArr = item.time?.split(" ")
+            binding.date.text = dateArr?.get(0) ?: " "
+            binding.time.text = dateArr?.get(1) ?: " "
+        }
     }
 }

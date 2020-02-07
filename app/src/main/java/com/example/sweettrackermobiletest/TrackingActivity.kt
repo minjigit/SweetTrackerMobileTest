@@ -2,7 +2,9 @@ package com.example.sweettrackermobiletest
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.sweettrackermobiletest.adapter.TrackingDetailAdapter
 import com.example.sweettrackermobiletest.databinding.ActivityTrackingBinding
@@ -19,6 +21,9 @@ class TrackingActivity : AppCompatActivity(), Contract.View {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_tracking)
         presenter = Presenter(this)
         presenter?.getTrackingData()
+
+        setSupportActionBar(binding.toolBar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     override fun setTrackingData(trackingData: TrackingData?) {
@@ -33,10 +38,34 @@ class TrackingActivity : AppCompatActivity(), Contract.View {
                 .with(this@TrackingActivity)
                 .load(this.purchaseItemImg)
                 .into(binding.itemImg)
+
+            val status = when(this.parcelLevel){
+                0 -> "집하"
+                1 -> "배송중"
+                2 -> "배달출발"
+                3 -> "배달완료"
+                else -> "운송장 없음"
+            }
+
+            binding.status.text = status
+            presenter?.getAdapter()
         }
     }
 
     override fun setAdapter(adapter: TrackingDetailAdapter) {
-        binding.detailList.adapter = adapter
+        val layoutManager = LinearLayoutManager(this)
+
+        binding.detailList.let {
+            it.adapter = adapter
+            it.layoutManager = layoutManager
+            it.isNestedScrollingEnabled = false
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when(item?.itemId){
+
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

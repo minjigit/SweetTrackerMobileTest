@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 
 class RetrofitUrlConnect {
-    var retrofit:Retrofit? = null
+    private var retrofit:Retrofit? = null
     var trackingDataService: TrackingDataService? = null
 
     init {
