@@ -13,7 +13,7 @@ class RetrofitUrlConnect {
 
     init {
         retrofit = Retrofit.Builder()
-            .baseUrl("http://img.sweettracker.net/")
+            .baseUrl("https://img.sweettracker.net/")
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()

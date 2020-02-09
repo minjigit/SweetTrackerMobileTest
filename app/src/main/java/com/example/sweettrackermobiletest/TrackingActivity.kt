@@ -2,6 +2,7 @@ package com.example.sweettrackermobiletest
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -60,6 +61,11 @@ class TrackingActivity : AppCompatActivity(), Contract.View {
             it.layoutManager = layoutManager
             it.isNestedScrollingEnabled = false
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_item, menu)
+        return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {

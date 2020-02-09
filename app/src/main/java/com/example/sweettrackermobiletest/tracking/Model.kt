@@ -2,6 +2,7 @@ package com.example.sweettrackermobiletest.tracking
 
 import android.util.Log
 import com.example.sweettrackermobiletest.adapter.TrackingDetailAdapter
+import com.example.sweettrackermobiletest.model.NewTrackingDetailData
 import com.example.sweettrackermobiletest.model.TrackingData
 import com.example.sweettrackermobiletest.utils.RetrofitUrlConnect
 import retrofit2.Call
@@ -29,8 +30,7 @@ class Model(val requiredPresenter: Contract.RequiredPresenter) {
     }
 
     fun getAdapter(){
-        val detailList = trackingData?.trackingDetail
-        val list = detailList?.sortedWith(compareByDescending {
+        val list = trackingData?.trackingDetail?.sortedWith(compareByDescending {
             it.time
         })
 
@@ -39,7 +39,22 @@ class Model(val requiredPresenter: Contract.RequiredPresenter) {
             splitArr!![0]
         }
 
-        val adapter = TrackingDetailAdapter(list!!)
+        val trackingArr = ArrayList<NewTrackingDetailData>()
+        group?.forEach {
+            var isCheck = true
+            it.value.forEach { it ->
+                if(isCheck){
+                    val newDetail = NewTrackingDetailData(isCheck, trackingData?.purchaseItemDate, it)
+                    trackingArr.add(newDetail)
+                    isCheck = false
+                }else{
+                    val newDetail = NewTrackingDetailData(isCheck, trackingData?.purchaseItemDate, it)
+                    trackingArr.add(newDetail)
+                }
+            }
+        }
+
+        val adapter = TrackingDetailAdapter(trackingArr)
         requiredPresenter.setAdapter(adapter)
     }
 }
