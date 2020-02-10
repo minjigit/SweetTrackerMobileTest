@@ -1,11 +1,13 @@
 package com.example.sweettrackermobiletest
 
+import android.animation.ArgbEvaluator
 import android.animation.ObjectAnimator
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.sweettrackermobiletest.adapter.TrackingDetailAdapter
 import com.example.sweettrackermobiletest.databinding.ActivityTrackingBinding
@@ -42,31 +44,43 @@ class TrackingActivity : AppCompatActivity(), Contract.View {
 
             var status = "운송장 없음"
             var progressValue = 0
+            var pinValue = 0
 
             when(this.parcelLevel){
                 0 -> {
                     status = "집하"
-                    progressValue = 66
                 }
                 1 -> {
                     status = "배송중"
-                    progressValue = 132
+                    progressValue = 33
+                    pinValue = 84
                 }
                 2 -> {
                     status = "배달출발"
-                    progressValue = 198
+                    progressValue = 66
+                    pinValue = 168
                 }
                 3 -> {
                     status = "배달완료"
-                    progressValue = 268
+                    progressValue = 100
+                    pinValue = 252
                 }
             }
             binding.status.text = status
             presenter?.getAdapter()
 
-            val ani = ObjectAnimator.ofInt(binding.progressBar, "progress", progressValue)
-            ani.duration = 3000
-            ani.start()
+            val progressAni = ObjectAnimator.ofInt(binding.progressBar, "progress", progressValue)
+            progressAni.duration = 3000
+            progressAni.start()
+
+            val pixel = pinValue * resources.displayMetrics.density
+            val pinMoveAni = ObjectAnimator.ofFloat(binding.pinImg,"translationX", pixel)
+            pinMoveAni.duration = 3000
+            pinMoveAni.start()
+
+//            val ovalColorAni = ObjectAnimator.ofObject(binding.step1Oval,"backgroundColor", ArgbEvaluator(), 0xa7e0fa)
+//            ovalColorAni.duration = 3000
+//            ovalColorAni.start()
         }
     }
 
@@ -75,7 +89,7 @@ class TrackingActivity : AppCompatActivity(), Contract.View {
 
         binding.detailList.let {
             it.adapter = adapter
-            it.layoutManager = layoutManager
+            it.layoutManager = layoutManager as RecyclerView.LayoutManager?
             it.isNestedScrollingEnabled = false
         }
     }
