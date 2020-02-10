@@ -1,9 +1,9 @@
 package com.example.sweettrackermobiletest
 
+import android.animation.ObjectAnimator
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
+import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -40,16 +40,33 @@ class TrackingActivity : AppCompatActivity(), Contract.View {
                 .load(this.purchaseItemImg)
                 .into(binding.itemImg)
 
-            val status = when(this.parcelLevel){
-                0 -> "집하"
-                1 -> "배송중"
-                2 -> "배달출발"
-                3 -> "배달완료"
-                else -> "운송장 없음"
-            }
+            var status = "운송장 없음"
+            var progressValue = 0
 
+            when(this.parcelLevel){
+                0 -> {
+                    status = "집하"
+                    progressValue = 66
+                }
+                1 -> {
+                    status = "배송중"
+                    progressValue = 132
+                }
+                2 -> {
+                    status = "배달출발"
+                    progressValue = 198
+                }
+                3 -> {
+                    status = "배달완료"
+                    progressValue = 268
+                }
+            }
             binding.status.text = status
             presenter?.getAdapter()
+
+            val ani = ObjectAnimator.ofInt(binding.progressBar, "progress", progressValue)
+            ani.duration = 3000
+            ani.start()
         }
     }
 
