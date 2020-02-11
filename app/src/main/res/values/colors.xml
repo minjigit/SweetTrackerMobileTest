@@ -7,4 +7,5 @@
     <color name="colorTxtGray">#aaa</color>
     <color name="caption">#757575</color>
     <color name="mainColor">#03a9f4</color>
+    <color name="subColor">#a7e0fa</color>
 </resources>

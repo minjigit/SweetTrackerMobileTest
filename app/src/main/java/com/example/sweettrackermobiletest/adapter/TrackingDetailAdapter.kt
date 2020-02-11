@@ -27,22 +27,23 @@ class TrackingDetailAdapter(private val data: ArrayList<NewTrackingDetailData>) 
 
     class ViewHolder(private val binding: TrackingDetailItemBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(item: NewTrackingDetailData){
-            val dateFormat = SimpleDateFormat("yyyy-mm-dd")
-            val purchaseDate = dateFormat.parse(item.purchaseDate)
-            val detailDate = dateFormat.parse(item.detail?.time)
-            var days = (purchaseDate.time - detailDate.time) / (24*60*60*1000)
-            days = abs(days)
 
-            binding.dDay.text = "D+$days"
             binding.status.text = item.detail?.status
             binding.location.text = item.detail?.where
 
             val dateArr = item.detail?.time?.split(" ")
-            binding.date.text = dateArr?.get(0) ?: " "
             binding.time.text = dateArr?.get(1) ?: " "
 
             if(item.check){
                 binding.dateLayout.visibility = View.VISIBLE
+                binding.date.text = dateArr?.get(0) ?: " "
+
+                val dateFormat = SimpleDateFormat("yyyy-mm-dd")
+                val purchaseDate = dateFormat.parse(item.purchaseDate)
+                val detailDate = dateFormat.parse(item.detail?.time)
+                var days = (purchaseDate.time - detailDate.time) / (24*60*60*1000)
+                days = abs(days)
+                binding.dDay.text = "D+$days"
             }
         }
     }

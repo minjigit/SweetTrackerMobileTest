@@ -93,7 +93,7 @@
                                 app:layout_constraintLeft_toLeftOf="@+id/progress_bar"
                                 app:layout_constraintTop_toTopOf="@+id/progress_bar"
                                 app:layout_constraintBottom_toBottomOf="@+id/progress_bar"
-                                android:src="@drawable/tracking_oval"/>
+                                android:background="@drawable/tracking_oval"/>
 
                         <ImageView
                                 android:id="@+id/step_2_oval"
@@ -104,7 +104,7 @@
                                 app:layout_constraintTop_toBottomOf="@id/step_2_txt"
                                 app:layout_constraintTop_toTopOf="@+id/progress_bar"
                                 app:layout_constraintBottom_toBottomOf="@+id/progress_bar"
-                                android:src="@drawable/tracking_oval"/>
+                                android:background="@drawable/tracking_oval"/>
 
                         <ImageView
                                 android:id="@+id/step_3_oval"
@@ -115,7 +115,7 @@
                                 app:layout_constraintTop_toBottomOf="@+id/step_3_txt"
                                 app:layout_constraintTop_toTopOf="@+id/progress_bar"
                                 app:layout_constraintBottom_toBottomOf="@+id/progress_bar"
-                                android:src="@drawable/tracking_oval"/>
+                                android:background="@drawable/tracking_oval"/>
 
                         <ImageView
                                 android:id="@+id/step_4_oval"
@@ -125,7 +125,7 @@
                                 app:layout_constraintTop_toBottomOf="@+id/step_4_txt"
                                 app:layout_constraintTop_toTopOf="@+id/progress_bar"
                                 app:layout_constraintBottom_toBottomOf="@+id/progress_bar"
-                                android:src="@drawable/tracking_oval"/>
+                                android:background="@drawable/tracking_oval"/>
 
                         <TextView
                                 android:id="@+id/step_1_txt"
@@ -133,6 +133,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="집하"
                                 android:textSize="10sp"
+                                android:visibility="invisible"
                                 android:textColor="@color/colorTxtGray"
                                 app:layout_constraintTop_toTopOf="parent"
                                 app:layout_constraintLeft_toLeftOf="@+id/step_1_oval"
@@ -145,6 +146,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="배송중"
                                 android:textSize="10sp"
+                                android:visibility="invisible"
                                 android:textColor="@color/colorTxtGray"
                                 app:layout_constraintTop_toTopOf="parent"
                                 app:layout_constraintLeft_toLeftOf="@+id/step_2_oval"
@@ -157,6 +159,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="배송출발"
                                 android:textSize="10sp"
+                                android:visibility="invisible"
                                 android:textColor="@color/colorTxtGray"
                                 app:layout_constraintTop_toTopOf="parent"
                                 app:layout_constraintLeft_toLeftOf="@+id/step_3_oval"
@@ -169,6 +172,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="배송완료"
                                 android:textSize="10sp"
+                                android:visibility="invisible"
                                 android:textColor="@color/colorTxtGray"
                                 app:layout_constraintTop_toTopOf="parent"
                                 app:layout_constraintLeft_toLeftOf="@+id/step_4_oval"
