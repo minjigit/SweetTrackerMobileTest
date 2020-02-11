@@ -50,7 +50,7 @@ class TrackingActivity : AppCompatActivity(), Contract.View {
             var pinValue = 0
 
             when(it.parcelLevel){
-                0 -> {
+                1 -> {
                     status = "집하"
 
                     fadeAni(binding.step2Txt, 1000L)
@@ -59,7 +59,7 @@ class TrackingActivity : AppCompatActivity(), Contract.View {
 
                     changeOvalColorAni(binding.step1Oval, R.color.mainColor,0L)
                 }
-                1 -> {
+                2 -> {
                     status = "배송중"
                     progressValue = 33
                     pinValue = 84
@@ -71,7 +71,7 @@ class TrackingActivity : AppCompatActivity(), Contract.View {
                     changeOvalColorAni(binding.step1Oval, R.color.subColor,0L)
                     changeOvalColorAni(binding.step2Oval, R.color.mainColor,1000L)
                 }
-                2 -> {
+                3 -> {
                     status = "배달출발"
                     progressValue = 66
                     pinValue = 168
@@ -84,7 +84,7 @@ class TrackingActivity : AppCompatActivity(), Contract.View {
                     changeOvalColorAni(binding.step2Oval, R.color.subColor,1000L)
                     changeOvalColorAni(binding.step3Oval, R.color.mainColor,1500L)
                 }
-                3 -> {
+                4 -> {
                     status = "배달완료"
                     progressValue = 100
                     pinValue = 252
