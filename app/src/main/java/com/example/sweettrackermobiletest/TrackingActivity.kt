@@ -49,6 +49,10 @@ class TrackingActivity : AppCompatActivity(), Contract.View {
             var progressValue = 0
             var pinValue = 0
 
+            val pinHalfWidth = binding.pinImg.width / 2
+            val progressWidth = binding.progressBar.width - pinHalfWidth
+            val progressBlock = progressWidth / 3
+
             when(it.parcelLevel){
                 1 -> {
                     status = "집하"
@@ -62,7 +66,7 @@ class TrackingActivity : AppCompatActivity(), Contract.View {
                 2 -> {
                     status = "배송중"
                     progressValue = 33
-                    pinValue = 84
+                    pinValue = progressBlock
 
                     fadeAni(binding.step1Txt, 500L)
                     fadeAni(binding.step3Txt, 1500L)
@@ -74,7 +78,7 @@ class TrackingActivity : AppCompatActivity(), Contract.View {
                 3 -> {
                     status = "배달출발"
                     progressValue = 66
-                    pinValue = 168
+                    pinValue = progressBlock * 2
 
                     fadeAni(binding.step1Txt, 500L)
                     fadeAni(binding.step2Txt, 1000L)
@@ -87,7 +91,7 @@ class TrackingActivity : AppCompatActivity(), Contract.View {
                 4 -> {
                     status = "배달완료"
                     progressValue = 100
-                    pinValue = 252
+                    pinValue = progressBlock * 3
 
                     fadeAni(binding.step1Txt, 500L)
                     fadeAni(binding.step2Txt, 1000L)
@@ -106,8 +110,7 @@ class TrackingActivity : AppCompatActivity(), Contract.View {
             progressAni.duration = 3000L
             progressAni.start()
 
-            val pixel = convertDpToPixels(pinValue)
-            val pinMoveAni = ObjectAnimator.ofFloat(binding.pinImg,"translationX", pixel)
+            val pinMoveAni = ObjectAnimator.ofFloat(binding.pinImg,"translationX", pinValue.toFloat())
             pinMoveAni.duration = 3000L
             pinMoveAni.start()
         }
