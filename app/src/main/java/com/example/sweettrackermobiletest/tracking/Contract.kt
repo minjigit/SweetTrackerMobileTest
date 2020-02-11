@@ -7,7 +7,7 @@ interface Contract {
 
     interface View {
         fun setTrackingData(trackingData: TrackingData?)
-        fun setAdapter(adapter: TrackingDetailAdapter)
+        fun setAdapter(trackingAdapter: TrackingDetailAdapter)
     }
 
     interface Presenter {
@@ -17,6 +17,6 @@ interface Contract {
 
     interface RequiredPresenter {
         fun setTrackingData(trackingData: TrackingData?)
-        fun setAdapter(adapter: TrackingDetailAdapter)
+        fun setAdapter(trackingAdapter: TrackingDetailAdapter)
     }
 }

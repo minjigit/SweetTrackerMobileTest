@@ -1,13 +1,9 @@
 package com.example.sweettrackermobiletest
 
 import android.animation.Animator
-import android.animation.ArgbEvaluator
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
-import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
-import android.graphics.drawable.LayerDrawable
-import android.graphics.drawable.ShapeDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.*
@@ -21,7 +17,6 @@ import com.example.sweettrackermobiletest.databinding.ActivityTrackingBinding
 import com.example.sweettrackermobiletest.model.TrackingData
 import com.example.sweettrackermobiletest.tracking.Contract
 import com.example.sweettrackermobiletest.tracking.Presenter
-import io.reactivex.internal.operators.flowable.FlowableRangeLong
 
 class TrackingActivity : AppCompatActivity(), Contract.View {
     lateinit var binding: ActivityTrackingBinding
@@ -38,87 +33,83 @@ class TrackingActivity : AppCompatActivity(), Contract.View {
     }
 
     override fun setTrackingData(trackingData: TrackingData?) {
-        trackingData?.apply {
-            binding.itemName.text = this.purchaseItemName
-            binding.invoice.text = this.parcelInvoice
-            binding.parcelCompany.text = this.parcelCompanyName
-            binding.statusSub.text = "도착예정시간 : ${this.parcelDeliverTime}"
-            binding.date.text = "등록일 : ${this.purchaseItemDate}"
+        trackingData?.let {
+            binding.itemName.text = it.purchaseItemName
+            binding.invoice.text = it.parcelInvoice
+            binding.parcelCompany.text = it.parcelCompanyName
+            binding.statusSub.text = "도착예정시간 : ${it.parcelDeliverTime}"
+            binding.date.text = "등록일 : ${it.purchaseItemDate}"
 
             Glide
                 .with(this@TrackingActivity)
-                .load(this.purchaseItemImg)
+                .load(it.purchaseItemImg)
                 .into(binding.itemImg)
 
             var status = "운송장 없음"
             var progressValue = 0
             var pinValue = 0
 
-            when(this.parcelLevel){
+            when(it.parcelLevel){
                 0 -> {
                     status = "집하"
 
-                    fadeAni(binding.step2Txt, 1000)
-                    fadeAni(binding.step3Txt, 1500)
-                    fadeAni(binding.step4Txt, 2000)
+                    fadeAni(binding.step2Txt, 1000L)
+                    fadeAni(binding.step3Txt, 1500L)
+                    fadeAni(binding.step4Txt, 2000L)
 
-                    changeOvalColorAni(binding.step1Oval, R.color.mainColor,0)
+                    changeOvalColorAni(binding.step1Oval, R.color.mainColor,0L)
                 }
                 1 -> {
                     status = "배송중"
                     progressValue = 33
                     pinValue = 84
 
-                    fadeAni(binding.step1Txt, 500)
-                    fadeAni(binding.step3Txt, 1500)
-                    fadeAni(binding.step4Txt, 2000)
+                    fadeAni(binding.step1Txt, 500L)
+                    fadeAni(binding.step3Txt, 1500L)
+                    fadeAni(binding.step4Txt, 2000L)
 
-                    changeOvalColorAni(binding.step1Oval, R.color.subColor,0)
-                    changeOvalColorAni(binding.step2Oval, R.color.mainColor,1000)
+                    changeOvalColorAni(binding.step1Oval, R.color.subColor,0L)
+                    changeOvalColorAni(binding.step2Oval, R.color.mainColor,1000L)
                 }
                 2 -> {
                     status = "배달출발"
                     progressValue = 66
                     pinValue = 168
 
-                    fadeAni(binding.step1Txt, 500)
-                    fadeAni(binding.step2Txt, 1000)
-                    fadeAni(binding.step4Txt, 2000)
+                    fadeAni(binding.step1Txt, 500L)
+                    fadeAni(binding.step2Txt, 1000L)
+                    fadeAni(binding.step4Txt, 2000L)
 
-                    changeOvalColorAni(binding.step1Oval, R.color.subColor,0)
-                    changeOvalColorAni(binding.step2Oval, R.color.subColor,1000)
-                    changeOvalColorAni(binding.step3Oval, R.color.mainColor,1500)
+                    changeOvalColorAni(binding.step1Oval, R.color.subColor,0L)
+                    changeOvalColorAni(binding.step2Oval, R.color.subColor,1000L)
+                    changeOvalColorAni(binding.step3Oval, R.color.mainColor,1500L)
                 }
                 3 -> {
                     status = "배달완료"
                     progressValue = 100
                     pinValue = 252
 
-                    fadeAni(binding.step1Txt, 500)
-                    fadeAni(binding.step2Txt, 1000)
-                    fadeAni(binding.step3Txt, 1500)
+                    fadeAni(binding.step1Txt, 500L)
+                    fadeAni(binding.step2Txt, 1000L)
+                    fadeAni(binding.step3Txt, 1500L)
 
-                    changeOvalColorAni(binding.step1Oval, R.color.subColor,0)
-                    changeOvalColorAni(binding.step2Oval, R.color.subColor,1000)
-                    changeOvalColorAni(binding.step3Oval, R.color.subColor,1500)
-                    changeOvalColorAni(binding.step4Oval, R.color.mainColor,2000)
+                    changeOvalColorAni(binding.step1Oval, R.color.subColor,0L)
+                    changeOvalColorAni(binding.step2Oval, R.color.subColor,1000L)
+                    changeOvalColorAni(binding.step3Oval, R.color.subColor,1500L)
+                    changeOvalColorAni(binding.step4Oval, R.color.mainColor,2000L)
                 }
             }
             binding.status.text = status
             presenter?.getAdapter()
 
             val progressAni = ObjectAnimator.ofInt(binding.progressBar, "progress", progressValue)
-            progressAni.duration = 3000
+            progressAni.duration = 3000L
             progressAni.start()
 
             val pixel = convertDpToPixels(pinValue)
             val pinMoveAni = ObjectAnimator.ofFloat(binding.pinImg,"translationX", pixel)
-            pinMoveAni.duration = 3000
+            pinMoveAni.duration = 3000L
             pinMoveAni.start()
-
-            val statusFadeAni = ObjectAnimator.ofFloat(binding.step1Txt, "alpha", 0.0f, 1.0f)
-            statusFadeAni.duration = 3000
-            statusFadeAni.start()
         }
     }
 
@@ -143,7 +134,7 @@ class TrackingActivity : AppCompatActivity(), Contract.View {
     private fun fadeAni(view: View, delay: Long){
         ObjectAnimator.ofFloat(view, "alpha", 0.0f, 1.0f).apply {
             startDelay = delay
-            duration = 300
+            duration = 300L
             addListener(object : Animator.AnimatorListener{
                 override fun onAnimationRepeat(animation: Animator?) {
                 }
@@ -162,13 +153,13 @@ class TrackingActivity : AppCompatActivity(), Contract.View {
         }
     }
 
-    override fun setAdapter(adapter: TrackingDetailAdapter) {
-        val layoutManager = LinearLayoutManager(this)
+    override fun setAdapter(trackingAdapter: TrackingDetailAdapter) {
+        val manager = LinearLayoutManager(this)
 
-        binding.detailList.let {
-            it.adapter = adapter
-            it.layoutManager = layoutManager as RecyclerView.LayoutManager?
-            it.isNestedScrollingEnabled = false
+        binding.detailList.apply {
+            adapter = trackingAdapter
+            layoutManager = manager as RecyclerView.LayoutManager?
+            isNestedScrollingEnabled = false
         }
     }
 

@@ -22,7 +22,7 @@ class Presenter(val view: Contract.View?) : Contract.Presenter, Contract.Require
         model?.getAdapter()
     }
 
-    override fun setAdapter(adapter: TrackingDetailAdapter) {
-        view?.setAdapter(adapter)
+    override fun setAdapter(trackingAdapter: TrackingDetailAdapter) {
+        view?.setAdapter(trackingAdapter)
     }
 }

@@ -1,6 +1,5 @@
 package com.example.sweettrackermobiletest.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,7 +26,6 @@ class TrackingDetailAdapter(private val data: ArrayList<NewTrackingDetailData>) 
 
     class ViewHolder(private val binding: TrackingDetailItemBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(item: NewTrackingDetailData){
-
             binding.status.text = item.detail?.status
             binding.location.text = item.detail?.where
 
